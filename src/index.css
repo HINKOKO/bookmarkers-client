@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.down-arrow-container {
+  width: 24px;
+  height: 24px;
+  position: relative;
+}
+
+.down-arrow {
+  width: 10px;
+  height: 10px;
+  border-left: 28px solid transparent;
+  border-right: 28px solid transparent;
+  border-top: 24px solid white;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: bounce 1s infinite alternate; /* Add animation */
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateX(-50%) translateY(0);
+  }
+  100% {
+    transform: translateX(-50%) translateY(8px);
+  }
+}
