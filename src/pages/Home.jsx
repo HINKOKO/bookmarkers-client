@@ -1,8 +1,7 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import LoginButton from '../components/Login/LoginButton';
 import DownArrow from '../components/DownArrow';
 import Footer from '../components/Footer';
-import { IoMdLogIn } from 'react-icons/io';
 
 const navLinks = [
   {
@@ -20,13 +19,6 @@ const navLinks = [
 ];
 
 const Home = () => {
-  const [isHovered, setIsHovered] = useState(false);
-  const navigate = useNavigate();
-
-  const redirectLogin = () => {
-    navigate('/login');
-  };
-
   return (
     <>
       <section
@@ -49,22 +41,7 @@ const Home = () => {
               </>
             ))}
           </div>
-          <div
-            className="icon-container flex items-center space-x-4 absolute top-0 right-0 mt-10 pr-10"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            onClick={redirectLogin}
-            style={{ cursor: 'pointer' }}
-          >
-            <div
-              className={`text-lg transition-opacity duration-300 ${
-                isHovered ? 'opacity-100' : 'opacity-0'
-              }`}
-            >
-              Login
-            </div>
-            <IoMdLogIn className="w-12 h-12 hover:scale-110" />
-          </div>
+          <LoginButton />
         </nav>
         <div className="max-w-lg mt-20 mb-32 p-4 font-sans text-4xl text-white uppercase text-center border-4 md:p-10 md:mb-12 md:mx-0 md:text-6xl md:ml-12">
           The Finest Bookmarks

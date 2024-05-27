@@ -3,7 +3,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Bookmarks from './pages/Bookmarks';
 import GenericProject from './components/GenericProject';
-import LoginForm from './components/Login/LoginForm';
+// import LoginForm from './components/Login/LoginForm';
 
 function App() {
   return (
@@ -17,7 +17,6 @@ function App() {
           <Route path=":category" element={<GenericProject />} />
         </Route>
         <Route path="/about" element={<About />} />
-        <Route path="/login" element={<LoginForm />} />
       </Routes>
     </div>
   );
