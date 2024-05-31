@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import LoginButton from './Login/LoginButton';
 
 const CardProject = ({ title, projectId, onClick }) => {
   const [urls, setUrls] = useState([]);
@@ -25,6 +26,7 @@ const CardProject = ({ title, projectId, onClick }) => {
       onClick={onClick ? handleClick : null}
     >
       <h1 className="font-lg font-kanit">{title}</h1>
+      <LoginButton />
       {loading && <p>Loading resources...</p>}
       {!loading && urls.length > 0 && (
         <ul>

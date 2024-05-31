@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import LoginButton from '../components/Login/LoginButton';
 import DownArrow from '../components/DownArrow';
+import LoginModal from '../components/Login/LoginModal';
 import Footer from '../components/Footer';
 
 const navLinks = [
@@ -23,17 +24,23 @@ const Home = () => {
     <>
       <section
         id="home"
-        className="container max-w-screen mx-auto min-h-screen px-6 py-12 bg-[url('/seahorse.png')] bg-no-repeat bg-cover"
+        className="container mx-auto min-h-screen px-6 py-12 bg-[url('/seahorse.png')] bg-no-repeat bg-cover"
       >
         <nav className="flex flex-row items-center justify-start space-x-6 font-bold text-white md:ml-[68px]">
           <div className="hidden h-10 md:flex md:space-x-8 justify-center items-center">
             {navLinks.map((key, idx) => (
               <>
-                <div className="group hover:scale-105 uppercase text-violet-100">
-                  <Link to={key.path} key={key.title}>
+                <div
+                  className="group hover:scale-105 uppercase text-violet-100"
+                  id={key.title}
+                >
+                  <Link to={key.path} id={key.title}>
                     {key.title}
                   </Link>
-                  <div className="absolute bottom-0 left-0 w-full group-hover:h-px group-hover:border-5"></div>
+                  <div
+                    className="absolute bottom-0 left-0 w-full group-hover:h-px group-hover:border-5"
+                    id={key.title}
+                  ></div>
                 </div>
                 {(idx === 0 || idx === 1) && (
                   <div className="border-b border-2"></div>
@@ -43,9 +50,10 @@ const Home = () => {
           </div>
           <LoginButton />
         </nav>
-        <div className="max-w-lg mt-20 mb-32 p-4 font-sans text-4xl text-white uppercase text-center border-4 md:p-10 md:mb-12 md:mx-0 md:text-6xl md:ml-12">
+        <div className="max-w-lg mt-32 p-4 font-sans text-4xl text-white uppercase text-center border-4 md:p-10 md:mb-12 md:mx-0 md:text-6xl md:ml-28">
           The Finest Bookmarks
         </div>
+        <LoginModal />
         <div className="mt-[120px] flex justify-center">
           <DownArrow />
         </div>

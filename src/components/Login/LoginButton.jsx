@@ -1,21 +1,17 @@
 import { useState } from 'react';
 import { IoMdLogIn } from 'react-icons/io';
-import { useNavigate } from 'react-router-dom';
+import { useModal } from '../../store/ModalContext';
 
 const LoginButton = () => {
   const [isHovered, setIsHovered] = useState(false);
-  const navigate = useNavigate();
-
-  const redirectLogin = () => {
-    navigate('/');
-  };
+  const { openModal } = useModal();
 
   return (
     <div
       className="icon-container flex items-center space-x-4 absolute top-0 right-0 mt-10 pr-10"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onClick={redirectLogin}
+      onClick={openModal}
       style={{ cursor: 'pointer' }}
     >
       <div
