@@ -16,6 +16,10 @@ const pathProjects = [
     subpath: '/bookmarks/blockchain',
   },
   {
+    category: 'malloc',
+    subpath: '/bookmarks/malloc',
+  },
+  {
     category: 'simple-shell',
     subpath: '/bookmarks/simple-shell',
   },

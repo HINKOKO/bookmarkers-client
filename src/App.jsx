@@ -1,16 +1,32 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import Home from './pages/Home';
 import About from './pages/About';
 import Bookmarks from './pages/Bookmarks';
 import GenericProject from './components/GenericProject';
+import DashBoard from './pages/DashBoard';
+import Greeting from './components/Greeting';
+import { useAuth } from './store/AuthContext';
 
-import { ModalProvider } from './store/ModalContext';
-// import LoginForm from './components/Login/LoginForm';
+import { useEffect } from 'react';
 
 function App() {
+  const { handleLoginResponse, isAuthenticated, user } = useAuth();
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('accessToken');
+    const userData = urlParams.get('user');
+    console.log(token + 'is the token in APp');
+    if (token) {
+      handleLoginResponse(urlParams, userData);
+    }
+  }, [handleLoginResponse]);
+
   return (
     // provide values of context to the entire components
-    <ModalProvider>
+    <div>
+      {isAuthenticated && user && <Greeting />}
+
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="/bookmarks" element={<Bookmarks />}>
@@ -20,8 +36,9 @@ function App() {
           <Route path=":category" element={<GenericProject />} />
         </Route>
         <Route path="/about" element={<About />} />
+        <Route path="/dashboard" element={<DashBoard />} />
       </Routes>
-    </ModalProvider>
+    </div>
   );
 }
 
