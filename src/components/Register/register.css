@@ -1,0 +1,12 @@
+@keyframes flowing {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+.animate-flowing {
+  animation: flowing 3s linear infinite;
+}

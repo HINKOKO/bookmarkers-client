@@ -1,10 +1,11 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useAuth } from '../store/AuthContext';
 import LoginButton from '../components/Login/LoginButton';
 import DownArrow from '../components/DownArrow';
 import LoginModal from '../components/Login/LoginModal';
 import HeroSection from '../components/HeroSection';
 import Footer from '../components/Footer';
-import { useAuth } from '../store/AuthContext';
 import BannerGreet from '../components/Login/BannerGreet';
 
 const navLinks = [
@@ -23,6 +24,19 @@ const navLinks = [
 ];
 
 const Home = () => {
+  const location = useLocation();
+  const [openLoginModal, setOpenLoginModal] = useState(false);
+
+  useEffect(() => {
+    // Check if the redirect query parameter is present in the URL
+    const queryParams = new URLSearchParams(location.search);
+    const redirectToLogin = queryParams.get('redirect') === 'login';
+
+    // If the query parameter indicates a redirect to the login modal, open the modal
+    if (redirectToLogin) {
+      setOpenLoginModal(true);
+    }
+  }, [location.search]);
   const { isAuthenticated } = useAuth();
   return (
     <>
@@ -57,7 +71,7 @@ const Home = () => {
         <div className="max-w-lg mt-32 p-4 font-sans text-4xl text-white uppercase text-center border-4 md:p-10 md:mb-12 md:mx-0 md:text-6xl md:ml-28">
           Welcome to The Finest Bookmarks Place
         </div>
-        <LoginModal />
+        <LoginModal open={openLoginModal} />
         <div className="mt-[120px] flex justify-center">
           <DownArrow />
         </div>

@@ -3,8 +3,10 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Bookmarks from './pages/Bookmarks';
 import GenericProject from './components/GenericProject';
+import Register from './components/Register/Register';
 import DashBoard from './pages/DashBoard';
-import Greeting from './components/Greeting';
+import EmailConfirm from './components/Register/EmailConfirm';
+import EmailConfirmed from './components/Register/EmailConfirmed';
 import { useAuth } from './store/AuthContext';
 
 import { useEffect } from 'react';
@@ -15,17 +17,17 @@ function App() {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('accessToken');
-    const userData = urlParams.get('user');
-    console.log(token + 'is the token in APp');
+    // const userData = urlParams.get('user');
+    // console.log(token + 'is the token in APp');
     if (token) {
-      handleLoginResponse(urlParams, userData);
+      handleLoginResponse(token);
     }
   }, [handleLoginResponse]);
 
   return (
     // provide values of context to the entire components
     <div>
-      {isAuthenticated && user && <Greeting />}
+      {/* {isAuthenticated && user && <Greeting />} */}
 
       <Routes>
         <Route exact path="/" element={<Home />} />
@@ -36,7 +38,10 @@ function App() {
           <Route path=":category" element={<GenericProject />} />
         </Route>
         <Route path="/about" element={<About />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<DashBoard />} />
+        <Route path="/email-confirmation" element={<EmailConfirm />} />
+        <Route path="/email-confirmed" element={<EmailConfirmed />} />
       </Routes>
     </div>
   );

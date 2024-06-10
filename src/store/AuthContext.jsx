@@ -9,48 +9,39 @@ export const AuthProvider = ({ children }) => {
 
   const [user, setUser] = useState(null);
 
-  const handleLoginResponse = async (searchParams, userData) => {
-    const token = searchParams.get('accessToken');
-    console.log('access token is' + token);
-    if (token) {
-      setAccessToken(token);
-      localStorage.setItem('accessToken', token);
-      const userInfo = JSON.parse(decodeURIComponent(userData));
-      setUser(userInfo);
-      console.log(userInfo);
-    } else if (!accessToken) {
-      console.log('login failed, acess token not found');
-    }
+  const handleLoginResponse = token => {
+    setAccessToken(token);
+    localStorage.setItem('accessToken', token);
   };
 
-  const fetchUserInfo = async accessToken => {
-    try {
-      console.log(
-        'do I have accessToken when fetching user info ? ' + accessToken
-      );
-      // Make an API call to fetch user information using the access token
-      const response = await fetch('http://localhost:8080/user-info', {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+  const fetchUserInfo = async () => {
+    if (accessToken) {
+      try {
+        // Make an API call to fetch user information using the access token
+        const response = await fetch('http://localhost:8080/user-info', {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
 
-      if (response.ok) {
-        const userInfo = await response.json();
-        return userInfo;
-      } else {
-        throw new Error('Failed to fetch user information');
+        if (response.ok) {
+          const userInfo = await response.json();
+          console.log(
+            'fetched user info like so' + JSON.stringify(userInfo, null, 2)
+          );
+          setUser(userInfo);
+        } else {
+          throw new Error('Failed to fetch user information');
+        }
+      } catch (error) {
+        console.error('Error fetching user information:', error.message);
       }
-    } catch (error) {
-      console.error('Error fetching user information:', error.message);
-      // Handle error gracefully, return default user info or rethrow the error
-      return { username: 'Default User' };
     }
   };
 
   useEffect(() => {
     if (accessToken) {
-      console.log('access token', accessToken);
+      fetchUserInfo();
     }
   }, [accessToken]);
 

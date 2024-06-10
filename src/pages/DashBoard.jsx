@@ -3,29 +3,19 @@ import { useAuth } from '../store/AuthContext';
 const DashBoard = () => {
   const { user } = useAuth();
 
-  if (!user)
-    return (
-      <div
-        className="flex items-center bg-black w-screen h-[20px] absolute top-0 right-0 left-0"
-        style={{ cursor: 'pointer' }}
-      >
-        <h3 className="text-white font-semibold font-kanit text-center">
-          Loading...
-        </h3>
-      </div>
-    );
+  if (!user) {
+    return <div>Loadading...</div>;
+  }
 
   return (
     <div>
       <h1>Dashboard</h1>
       {user && (
         <div>
-          <p>Nickname: {user.NickName}</p>
+          <p>Nickname: {user.username}</p>
           <p>
-            Avatar: <img src={user.AvatarURL} alt="Avatar" />
+            Avatar: <img src={user.avatar_url} alt="Avatar" />
           </p>
-          <p>Provider: {user.Provider}</p>
-          <p>UserID: {user.UserID}</p>
         </div>
       )}
     </div>
@@ -33,3 +23,31 @@ const DashBoard = () => {
 };
 
 export default DashBoard;
+
+// const [loading, setLoading] = useState(true);
+// const [userInfo, setUserInfo] = useState(null);
+// const [accessToken, setAccessToken] = useState('');
+
+// useEffect(() => {
+//   const fetchUserInfo = async () => {
+//     try {
+//       const token = localStorage.getItem('accessToken');
+//       console.log('Dashboard:: we get token => ' + token);
+//       if (token) setAccessToken(token);
+//       const response = await fetch('http://localhost:8080/user-info', {
+//         headers: {
+//           Authorization: `Bearer ${token}`,
+//         },
+//       });
+//       if (response.ok) {
+//         const userInfo = await response.json();
+//         setUserInfo(userInfo);
+//       }
+//     } catch (error) {
+//       console.log(error);
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+//   fetchUserInfo();
+// }, [accessToken]);
