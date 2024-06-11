@@ -49,7 +49,7 @@ const Home = () => {
             {navLinks.map((key, idx) => (
               <>
                 <div
-                  className="group hover:scale-105 uppercase text-violet-100"
+                  className="group hover:scale-105 uppercase text-sm md:text-xl font-extrabold font-kanit text-violet-100"
                   id={key.title}
                 >
                   <Link to={key.path} id={key.title}>

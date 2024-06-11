@@ -43,10 +43,4 @@ const GenericProject = () => {
   );
 };
 
-// className={`text-slate-200 uppercase text-lg font-robot text-center bg-fuchsia-700 rounded-md p-4 w-2/3 hover:scale-110 ${
-// 	category === l.category
-// 	  ? 'bg-fuchsia-500 border-4 border-solid border-black'
-// 	  : ''
-//   }`}
-
 export default GenericProject;

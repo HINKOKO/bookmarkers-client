@@ -7,6 +7,7 @@ import Register from './components/Register/Register';
 import DashBoard from './pages/DashBoard';
 import EmailConfirm from './components/Register/EmailConfirm';
 import EmailConfirmed from './components/Register/EmailConfirmed';
+import Contributors from './pages/Contributors';
 import { useAuth } from './store/AuthContext';
 
 import { useEffect } from 'react';
@@ -42,6 +43,7 @@ function App() {
         <Route path="/dashboard" element={<DashBoard />} />
         <Route path="/email-confirmation" element={<EmailConfirm />} />
         <Route path="/email-confirmed" element={<EmailConfirmed />} />
+        <Route path="/contributors" element={<Contributors />} />
       </Routes>
     </div>
   );

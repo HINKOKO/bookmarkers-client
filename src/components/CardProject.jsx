@@ -1,9 +1,12 @@
 import { useState } from 'react';
-import LoginButton from './Login/LoginButton';
+import { FaHome } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 const CardProject = ({ title, projectId, onClick }) => {
   const [urls, setUrls] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleClick = async () => {
     setLoading(true);
@@ -26,7 +29,13 @@ const CardProject = ({ title, projectId, onClick }) => {
       onClick={onClick ? handleClick : null}
     >
       <h1 className="font-lg font-kanit">{title}</h1>
-      <LoginButton />
+      <button
+        id="home"
+        className="absolute top-20 right-20"
+        onClick={() => navigate('/')}
+      >
+        <FaHome className="text-3xl" />
+      </button>
       {loading && <p>Loading resources...</p>}
       {!loading && urls.length > 0 && (
         <ul>

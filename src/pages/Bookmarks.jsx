@@ -70,12 +70,12 @@ const Bookmarks = () => {
                 </Link>
               ))}
               <hr></hr>
-              <button
+              {/* <button
                 className="text-slate-200 uppercase text-lg font-robot rounded-md bg-black px-6 py-4 text-white w-2/3"
                 onClick={() => navigate('/')}
               >
                 Go Home
-              </button>
+              </button> */}
             </div>
           </div>
           <div className="flex-1 justify-center items-center bg-white rounded-r-xl border-r border-solid border-black">
