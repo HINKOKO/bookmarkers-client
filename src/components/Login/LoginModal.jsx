@@ -26,6 +26,7 @@ const LoginModal = ({ open }) => {
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include', // ensure cookies are included in the request
         body: JSON.stringify({ email, password }),
       });
       if (response.ok) {
