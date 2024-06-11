@@ -11,7 +11,6 @@ const CardContributor = ({ contributor }) => {
         />
       </div>
       <p className="text-gray-600">{contributor.email}</p>
-      {/* Add more information if needed */}
     </div>
   );
 };

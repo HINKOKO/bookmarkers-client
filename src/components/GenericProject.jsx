@@ -35,7 +35,7 @@ const GenericProject = () => {
       <div className="grid grid-cols-4 gap-x-4 gap-y-10 w-full p-4">
         {projects.map(p => (
           <div className="flex justify-center">
-            <CardProject title={p.name} key={p.id} />
+            <CardProject title={p.name} category={category} key={p.id} />
           </div>
         ))}
       </div>

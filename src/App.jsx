@@ -3,17 +3,19 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Bookmarks from './pages/Bookmarks';
 import GenericProject from './components/GenericProject';
+import GenericResources from './components/Resources/GenericResources';
 import Register from './components/Register/Register';
 import DashBoard from './pages/DashBoard';
 import EmailConfirm from './components/Register/EmailConfirm';
 import EmailConfirmed from './components/Register/EmailConfirmed';
 import Contributors from './pages/Contributors';
+
 import { useAuth } from './store/AuthContext';
 
 import { useEffect } from 'react';
 
 function App() {
-  const { handleLoginResponse, isAuthenticated, user } = useAuth();
+  const { handleLoginResponse } = useAuth();
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -28,8 +30,6 @@ function App() {
   return (
     // provide values of context to the entire components
     <div>
-      {/* {isAuthenticated && user && <Greeting />} */}
-
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="/bookmarks" element={<Bookmarks />}>
@@ -37,6 +37,10 @@ function App() {
           {/* Because they are the hardest projects, haha */}
           <Route index element={<Navigate to="system-linux" replace />} />
           <Route path=":category" element={<GenericProject />} />
+          <Route
+            path="/bookmarks/:category/:project/resources"
+            element={<GenericResources />}
+          />
         </Route>
         <Route path="/about" element={<About />} />
         <Route path="/register" element={<Register />} />
