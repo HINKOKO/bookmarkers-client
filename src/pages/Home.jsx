@@ -26,6 +26,8 @@ const navLinks = [
 const Home = () => {
   const location = useLocation();
   const [openLoginModal, setOpenLoginModal] = useState(false);
+  // const [authenticated, setAuthenticated] = useState(false);
+  const { isAuthenticated, checkAuthStatus } = useAuth();
 
   useEffect(() => {
     // Check if the redirect query parameter is present in the URL
@@ -36,8 +38,13 @@ const Home = () => {
     if (redirectToLogin) {
       setOpenLoginModal(true);
     }
-  }, [location.search]);
-  const { isAuthenticated } = useAuth();
+
+    // check authentication status on backend
+    checkAuthStatus();
+  }, [location.search, checkAuthStatus]);
+
+  // const { isAuthenticated } = useAuth();
+
   return (
     <>
       <section
@@ -67,6 +74,14 @@ const Home = () => {
             ))}
           </div>
           {isAuthenticated ? <BannerGreet /> : <LoginButton />}
+          {isAuthenticated && (
+            <Link
+              to="/contribute"
+              className="ml-4 py-2 px-4 bg-blue-600 text-white rounded"
+            >
+              Add a Resource
+            </Link>
+          )}
         </nav>
         <div className="max-w-lg mt-32 p-4 font-sans text-4xl text-white uppercase text-center border-4 md:p-10 md:mb-12 md:mx-0 md:text-6xl md:ml-28">
           Welcome to The Finest Bookmarks Place

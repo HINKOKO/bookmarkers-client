@@ -8,6 +8,31 @@ export const AuthProvider = ({ children }) => {
   );
 
   const [user, setUser] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const checkAuthStatus = async () => {
+    try {
+      const res = await fetch(`http://localhost:8080/`, {
+        method: 'GET',
+        credentials: 'include',
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setIsAuthenticated(data.authenticated);
+        return data.authenticated;
+      } else {
+        setIsAuthenticated(false);
+        return false;
+      }
+    } catch (error) {
+      console.error('Failed to check auth status', error);
+      setIsAuthenticated(false);
+    }
+  };
+
+  useEffect(() => {
+    checkAuthStatus();
+  }, []);
 
   const handleLoginResponse = token => {
     setAccessToken(token);
@@ -49,7 +74,9 @@ export const AuthProvider = ({ children }) => {
     accessToken,
     user,
     handleLoginResponse,
-    isAuthenticated: !!accessToken,
+    // isAuthenticated: !!accessToken,
+    isAuthenticated,
+    checkAuthStatus,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
