@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { IoCloseSharp } from 'react-icons/io5';
+import { IoCloseSharp, IoEye, IoEyeOff } from 'react-icons/io5';
 import './register.css';
 
 const url = `http://localhost:8080`;
@@ -12,7 +12,14 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  // to toggle visible/invisble typed password - help user confirm his typing
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+
+  // Passwords visibility toggler
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleRegister = async e => {
     e.preventDefault();
@@ -22,6 +29,16 @@ const Register = () => {
     }
     if (password !== passwordConfirm) {
       setPasswordError('error: password mismatches');
+      alert('Passwords do not match');
+      return;
+    }
+
+    const passwordRegex = /^(?=.*[0-9].*[0-9])(?=.*[!@#()\[\]]).{8,}$/;
+    if (!passwordRegex.test(password)) {
+      setPasswordError(
+        'Please at least 8 characters long, 2 digits, and one of the following specials : &#@!()[]'
+      );
+      alert('One or more fields are wrong');
       return;
     }
 
@@ -76,6 +93,7 @@ const Register = () => {
               placeholder="username"
               className="border text-sm rounded-lg block w-full p-2.5"
               onChange={e => setUsername(e.target.value)}
+              maxLength={24}
               required
             />
             {/* <p className="mt-2 text-sm text-green-600 dark:text-green-500">
@@ -97,10 +115,11 @@ const Register = () => {
               pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"
               onChange={e => setEmail(e.target.value)}
               maxLength={120}
+              title="Please enter a valid email address (e.g., example@domain.com)"
               required
             />
           </div>
-          <div className="mb-5">
+          <div className="mb-5 relative">
             <label
               htmlFor="password"
               className="block mb-2 text-sm font-medium font-kanit"
@@ -108,14 +127,24 @@ const Register = () => {
               Password
             </label>
             <input
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               id="password"
-              className="border-2 text-sm rounded-lg block w-full p-2.5"
+              className="border-2 text-sm rounded-lg block w-full p-2.5 pr-10"
               placeholder="Password"
               onChange={e => setPassword(e.target.value)}
               maxLength={60}
               required
             />
+            <span
+              className="absolute right-3 top-0 cursor-pointer"
+              onClick={togglePasswordVisibility}
+            >
+              {showPassword ? (
+                <IoEyeOff className="text-xl" />
+              ) : (
+                <IoEye className="text-xl" />
+              )}
+            </span>
           </div>
           <div className="mb-5">
             <label
@@ -125,7 +154,7 @@ const Register = () => {
               Confirm Password
             </label>
             <input
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               id="password-confirm"
               className="border-2 text-sm rounded-lg block w-full p-2.5"
               placeholder="Confirm Password"
@@ -133,8 +162,10 @@ const Register = () => {
               maxLength={60}
               required
             />
+
             {passwordError && <p className="text-red-500">{passwordError}</p>}
           </div>
+
           <button
             className="mt-6 px-4 py-4 border w-full rounded-xl bg-amber-700 text-lg font-medium font-kanit"
             onClick={handleRegister}

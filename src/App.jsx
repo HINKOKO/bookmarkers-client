@@ -28,13 +28,11 @@ function App() {
   }, [handleLoginResponse]);
 
   return (
-    // provide values of context to the entire components
     <div>
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="/bookmarks" element={<Bookmarks />}>
           {/*child routes of /bookmarks, redirect by default to system-linux */}
-          {/* Because they are the hardest projects, haha */}
           <Route index element={<Navigate to="system-linux" replace />} />
           <Route path=":category" element={<GenericProject />} />
           <Route

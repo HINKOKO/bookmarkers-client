@@ -6,7 +6,8 @@ import DownArrow from '../components/DownArrow';
 import LoginModal from '../components/Login/LoginModal';
 import HeroSection from '../components/HeroSection';
 import Footer from '../components/Footer';
-import BannerGreet from '../components/Login/BannerGreet';
+// import BannerGreet from '../components/Login/BannerGreet';
+import LogoutButton from '../components/Login/LogoutButton';
 
 const navLinks = [
   {
@@ -27,7 +28,7 @@ const Home = () => {
   const location = useLocation();
   const [openLoginModal, setOpenLoginModal] = useState(false);
   // const [authenticated, setAuthenticated] = useState(false);
-  const { isAuthenticated, checkAuthStatus } = useAuth();
+  const { isAuthenticated, user } = useAuth();
 
   useEffect(() => {
     // Check if the redirect query parameter is present in the URL
@@ -40,8 +41,8 @@ const Home = () => {
     }
 
     // check authentication status on backend
-    checkAuthStatus();
-  }, [location.search, checkAuthStatus]);
+    // checkAuthStatus();
+  }, [location.search]);
 
   // const { isAuthenticated } = useAuth();
 
@@ -73,14 +74,22 @@ const Home = () => {
               </>
             ))}
           </div>
-          {isAuthenticated ? <BannerGreet /> : <LoginButton />}
-          {isAuthenticated && (
-            <Link
-              to="/contribute"
-              className="ml-4 py-2 px-4 bg-blue-600 text-white rounded"
-            >
-              Add a Resource
-            </Link>
+          {isAuthenticated ? <LogoutButton /> : <LoginButton />}
+          {isAuthenticated ? (
+            <>
+              <Link
+                to="/contribute"
+                className="ml-4 py-2 px-4 bg-blue-600 text-white rounded"
+              >
+                Add a Resource
+              </Link>
+              <div>
+                <span>Welcome {user.name}</span>
+                {user.avatar_url && <img src={user.avatar_url} />}
+              </div>
+            </>
+          ) : (
+            <LoginButton />
           )}
         </nav>
         <div className="max-w-lg mt-32 p-4 font-sans text-4xl text-white uppercase text-center border-4 md:p-10 md:mb-12 md:mx-0 md:text-6xl md:ml-28">

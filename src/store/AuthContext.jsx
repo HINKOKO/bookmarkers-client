@@ -19,14 +19,17 @@ export const AuthProvider = ({ children }) => {
       if (res.ok) {
         const data = await res.json();
         setIsAuthenticated(data.authenticated);
-        return data.authenticated;
+        if (data.authenticated) {
+          setUser(data.user);
+        }
       } else {
         setIsAuthenticated(false);
-        return false;
+        setUser(null);
       }
     } catch (error) {
       console.error('Failed to check auth status', error);
       setIsAuthenticated(false);
+      setUser(null);
     }
   };
 
@@ -76,7 +79,6 @@ export const AuthProvider = ({ children }) => {
     handleLoginResponse,
     // isAuthenticated: !!accessToken,
     isAuthenticated,
-    checkAuthStatus,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
