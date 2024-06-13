@@ -74,20 +74,8 @@ const Home = () => {
               </>
             ))}
           </div>
-          {isAuthenticated ? <LogoutButton /> : <LoginButton />}
           {isAuthenticated ? (
-            <>
-              <Link
-                to="/contribute"
-                className="ml-4 py-2 px-4 bg-blue-600 text-white rounded"
-              >
-                Add a Resource
-              </Link>
-              <div>
-                <span>Welcome {user.name}</span>
-                {user.avatar_url && <img src={user.avatar_url} />}
-              </div>
-            </>
+            <LogoutButton isAuthenticated={isAuthenticated} user={user} />
           ) : (
             <LoginButton />
           )}
