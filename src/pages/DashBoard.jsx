@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useAuth } from '../store/AuthContext';
 
 const DashBoard = () => {
@@ -8,16 +9,18 @@ const DashBoard = () => {
   }
 
   return (
-    <div>
-      <h1>Dashboard</h1>
-      {user && (
-        <div>
-          <p>Nickname: {user.username}</p>
-          <p>
-            Avatar: <img src={user.avatar_url} alt="Avatar" />
-          </p>
-        </div>
-      )}
+    <div className="container flex flex-col justify-center m-8">
+      <div className="flex" id="info">
+        <h1>Dashboard</h1>
+        {user && (
+          <div>
+            <p>Nickname: {user.username}</p>
+            <p>
+              Avatar: <img src={user.avatar_url} alt="Avatar" />
+            </p>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
