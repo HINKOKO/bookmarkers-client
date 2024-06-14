@@ -199,31 +199,3 @@ const DashBoard = () => {
 };
 
 export default DashBoard;
-
-// const [loading, setLoading] = useState(true);
-// const [userInfo, setUserInfo] = useState(null);
-// const [accessToken, setAccessToken] = useState('');
-
-// useEffect(() => {
-//   const fetchUserInfo = async () => {
-//     try {
-//       const token = localStorage.getItem('accessToken');
-//       console.log('Dashboard:: we get token => ' + token);
-//       if (token) setAccessToken(token);
-//       const response = await fetch('http://localhost:8080/user-info', {
-//         headers: {
-//           Authorization: `Bearer ${token}`,
-//         },
-//       });
-//       if (response.ok) {
-//         const userInfo = await response.json();
-//         setUserInfo(userInfo);
-//       }
-//     } catch (error) {
-//       console.log(error);
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-//   fetchUserInfo();
-// }, [accessToken]);

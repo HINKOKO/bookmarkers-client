@@ -3,14 +3,25 @@ import { IoMdLogOut } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 import LoginButton from './LoginButton'; // Assuming LoginButton is imported from another file
 
-const LogoutButton = ({ isAuthenticated, user }) => {
+const LogoutButton = ({
+  isAuthenticated,
+  setIsAuthenticated,
+  user,
+  setUser,
+}) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const handleLogout = async () => {
     try {
-      // Perform logout action here
-      console.log('Logging out...');
-      // Replace with actual logout logic (e.g., API call, clearing local storage, etc.)
+      const resp = await fetch(`http://localhost:8080/logout`, {
+        method: 'GET',
+        credentials: 'include',
+      });
+      if (resp.ok) {
+        console.log('U are logged out, loser');
+        setUser(null);
+        setIsAuthenticated(false);
+      }
     } catch (error) {
       console.error('Failed to logout:', error);
     }

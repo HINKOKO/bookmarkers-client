@@ -2,7 +2,7 @@ import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import Home from './pages/Home';
 import About from './pages/About';
 import Bookmarks from './pages/Bookmarks';
-import GenericProject from './components/GenericProject';
+import GenericProject from './components/Projects/GenericProject';
 import GenericResources from './components/Resources/GenericResources';
 import Register from './components/Register/Register';
 import DashBoard from './pages/DashBoard';

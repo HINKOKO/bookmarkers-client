@@ -28,7 +28,7 @@ const Home = () => {
   const location = useLocation();
   const [openLoginModal, setOpenLoginModal] = useState(false);
   // const [authenticated, setAuthenticated] = useState(false);
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated, user, setIsAuthenticated, setUser } = useAuth();
 
   useEffect(() => {
     // Check if the redirect query parameter is present in the URL
@@ -75,7 +75,12 @@ const Home = () => {
             ))}
           </div>
           {isAuthenticated ? (
-            <LogoutButton isAuthenticated={isAuthenticated} user={user} />
+            <LogoutButton
+              isAuthenticated={isAuthenticated}
+              user={user}
+              setIsAuthenticated={setIsAuthenticated}
+              setUser={setUser}
+            />
           ) : (
             <LoginButton />
           )}
