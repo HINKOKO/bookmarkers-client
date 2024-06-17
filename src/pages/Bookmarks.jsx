@@ -43,14 +43,14 @@ const Bookmarks = () => {
   return (
     <>
       <div className="flex bg-teal-500">
-        <div className="flex container m-8 shadow-blue-500/50 shadow-2xl">
-          <div className="bg-slate-200 min-h-screen flex flex-col w-76 justify-between rounded-l-xl border-r border-solid border-black border-l border-solid border-purple">
+        <div className="flex flex-col md:flex-row container m-8 shadow-blue-500/50 shadow-2xl">
+          <div className="bg-slate-200 min-h-screen flex flex-col w-76 justify-between rounded-r-xl md:rounded-r-none rounded-l-xl border-t md:border-t-0 border-r border-solid border-black border-l border-solid border-purple">
             {/* sidebar header */}
             <div className="p-2 mt-10">
               <h2 className="text-2xl text-center uppercase font-bold font-kanit flex-shrink-0">
                 The Finest Bookmarks
               </h2>
-              <p className="flex flex-shrink-0 font-thin text-center text-xl mt-8 whitespace-normal mx-4">
+              <p className="font-thin text-center text-xl mt-8 whitespace-normal mx-4">
                 <em>Pick the category you are in trouble with</em>
               </p>
             </div>
@@ -70,12 +70,6 @@ const Bookmarks = () => {
                 </Link>
               ))}
               <hr></hr>
-              {/* <button
-                className="text-slate-200 uppercase text-lg font-robot rounded-md bg-black px-6 py-4 text-white w-2/3"
-                onClick={() => navigate('/')}
-              >
-                Go Home
-              </button> */}
             </div>
           </div>
           <div className="flex-1 justify-center items-center bg-white rounded-r-xl border-r border-solid border-black">

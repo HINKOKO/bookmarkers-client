@@ -32,6 +32,7 @@ const LoginModal = ({ open }) => {
       if (response.ok) {
         // Handle successful login (e.g., redirect to dashboard)
         navigate('/dashboard');
+        handleLoginResponse();
       } else {
         // Handle login failure (e.g., show error message)
         console.error('Login failed');
