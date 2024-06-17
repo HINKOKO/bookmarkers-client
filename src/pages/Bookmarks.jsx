@@ -1,4 +1,4 @@
-import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 const url = `http://localhost:8080`;
@@ -27,7 +27,6 @@ const pathProjects = [
 
 const Bookmarks = () => {
   const location = useLocation();
-  const navigate = useNavigate();
   const [category, setCategory] = useState('');
 
   useEffect(() => {
@@ -44,7 +43,7 @@ const Bookmarks = () => {
     <>
       <div className="flex bg-teal-500">
         <div className="flex flex-col md:flex-row container m-8 shadow-blue-500/50 shadow-2xl">
-          <div className="bg-slate-200 min-h-screen flex flex-col w-76 justify-between rounded-r-xl md:rounded-r-none rounded-l-xl border-t md:border-t-0 border-r border-solid border-black border-l border-solid border-purple">
+          <div className="hidden md:block bg-slate-200 min-h-screen flex flex-col w-76 justify-between rounded-r-xl md:rounded-r-none rounded-l-xl border-t md:border-t-0 border-r border-solid border-black border-l border-solid border-purple">
             {/* sidebar header */}
             <div className="p-2 mt-10">
               <h2 className="text-2xl text-center uppercase font-bold font-kanit flex-shrink-0">

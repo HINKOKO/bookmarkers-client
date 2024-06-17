@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { IoMdLogOut } from 'react-icons/io';
 import { Link } from 'react-router-dom';
-import LoginButton from './LoginButton'; // Assuming LoginButton is imported from another file
 
 const LogoutButton = ({
   isAuthenticated,
@@ -29,27 +28,15 @@ const LogoutButton = ({
 
   return (
     <div
-      className="icon-container flex flex-col items-center space-y-6 absolute top-0 right-0 mt-10 pr-10"
+      className="hidden md:flex justify-between gap-[20px] items-center bg-slate-900 space-y-6 absolute top-0 right-0 mt-10 pr-10 rounded-lg "
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       style={{ cursor: 'pointer' }}
     >
-      <div
-        className={`text-lg transition-opacity duration-300 ${
-          isHovered ? 'opacity-100' : 'opacity-0'
-        }`}
-        onClick={handleLogout} // This allows clicking the text to trigger logout
-      >
-        Logout
-      </div>
-      <IoMdLogOut
-        className="w-12 h-12 hover:scale-110"
-        onClick={handleLogout} // This allows clicking the icon to trigger logout
-      />
-      {isAuthenticated ? (
+      <div id="avatar" className="flex m-2 pr-2 border-r-4">
         <Link
           to="/dashboard"
-          className="ml-4 py-2 px-4 bg-blue-600 text-white rounded"
+          className="ml-4 py-2 px-4 text-white rounded"
           // onClick={e => {
           //   if (isHovered) {
           //     e.preventDefault(); // Prevent default action if hovering over logout icon
@@ -61,9 +48,24 @@ const LogoutButton = ({
             {user.avatar_url && <img src={user.avatar_url} alt="User Avatar" />}
           </div>
         </Link>
-      ) : (
-        <LoginButton />
-      )}
+      </div>
+
+      {/* <div
+        className={`text-lg transition-opacity duration-300 ${
+          isHovered ? 'opacity-100' : 'opacity-0'
+        }`}
+      >
+        Logout
+      </div> */}
+      <div id="logout" className="group logout flex m-2">
+        <IoMdLogOut
+          className="w-12 h-12 group-hover:scale-110"
+          onClick={handleLogout} // This allows clicking the icon to trigger logout
+        />
+        <span className="hidden text-bold group-hover:translate-x-2 group-hover:block">
+          logout
+        </span>
+      </div>
     </div>
   );
 };
