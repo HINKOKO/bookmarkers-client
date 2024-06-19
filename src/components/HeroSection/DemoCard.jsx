@@ -37,7 +37,7 @@ const DemoCard = () => {
         <h3 className="text-center font-kanit text-xl mb-4 italic">
           Browse and pick the best bookmarks
         </h3>
-        <div className="flex space-x-5">
+        <div className="flex flex-col md:flex-row md:space-x-5 md:space-y-0 space-x-0 space-y-5">
           <CardDemoBookmark />
         </div>
       </div>

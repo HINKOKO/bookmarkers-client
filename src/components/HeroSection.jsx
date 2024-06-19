@@ -2,8 +2,6 @@ import ExplanationCard from './HeroSection/ExplanationCard';
 import DemoCard from './HeroSection/DemoCard';
 import ContributeCard from './HeroSection/ContributeCard';
 
-import { useModal } from '../../store/ModalContext';
-
 const HeroSection = () => {
   return (
     <>

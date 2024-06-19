@@ -1,19 +1,38 @@
 import { createContext, useState, useContext, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext(null);
+
 export const AuthProvider = ({ children }) => {
   const [accessToken, setAccessToken] = useState(
     localStorage.getItem('accessToken')
   );
-
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const token = searchParams.get('accessToken');
+    console.log('token from url is \t', token);
+    if (token) {
+      console.log(token);
+      handleLoginResponse(token);
+      navigate('/dashboard', { replace: true });
+    }
+  }, [location.search, navigate]);
 
   const checkAuthStatus = async () => {
+    console.log('accesstoken is set to ', accessToken);
     try {
       const res = await fetch(`http://localhost:8080/`, {
         method: 'GET',
         credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },
       });
       if (res.ok) {
         const data = await res.json();
@@ -39,15 +58,17 @@ export const AuthProvider = ({ children }) => {
   const handleLoginResponse = token => {
     setAccessToken(token);
     localStorage.setItem('accessToken', token);
+    fetchUserInfo(token);
   };
 
-  const fetchUserInfo = async () => {
-    if (accessToken) {
+  const fetchUserInfo = async token => {
+    if (token) {
       try {
+        console.log('token when fetching userInfo', token);
         // Make an API call to fetch user information using the access token
         const response = await fetch('http://localhost:8080/user-info', {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bearer ${token}`,
           },
         });
 

@@ -1,7 +1,6 @@
-import avatar1 from '../../../public/avatar_1.png';
-import avatar2 from '../../../public/avatar_2.png';
-import avatar3 from '../../../public/avatar_3.png';
-import { FaExternalLinkAlt } from 'react-icons/fa';
+import avatar1 from '/avatar_1.png';
+import avatar2 from '/avatar_2.png';
+import avatar3 from '/avatar_3.png';
 
 const cardData = [
   {

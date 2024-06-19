@@ -22,6 +22,7 @@ const LogoutButton = ({
         console.log('U are logged out, loser');
         setUser(null);
         setIsAuthenticated(false);
+        localStorage.removeItem('accessToken');
       }
     } catch (error) {
       console.error('Failed to logout:', error);
@@ -35,10 +36,10 @@ const LogoutButton = ({
       onMouseLeave={() => setIsHovered(false)}
       style={{ cursor: 'pointer' }}
     >
-      <div id="avatar" className="flex m-2 pr-2 border-r-4">
+      <div id="dashboard-sample" className="flex m-2 pr-2 border-r-4">
         <Link
           to="/dashboard"
-          className="ml-4 py-2 px-4 text-white rounded"
+          className="ml-4 py-2 px-4 text-white"
           // onClick={e => {
           //   if (isHovered) {
           //     e.preventDefault(); // Prevent default action if hovering over logout icon
@@ -46,12 +47,16 @@ const LogoutButton = ({
           // }}
         >
           Welcome {user.username}
-          <div>
-            {user.avatar_url && (
-              <img src={avatarUrl} alt="User Avatar" width={36} height={36} />
-            )}
-          </div>
         </Link>
+        {user.avatar_url && (
+          <img
+            src={avatarUrl}
+            alt="User Avatar"
+            width={36}
+            height={36}
+            className="rounded-lg"
+          />
+        )}
       </div>
 
       {/* <div

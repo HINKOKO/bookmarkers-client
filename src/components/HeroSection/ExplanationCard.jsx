@@ -1,6 +1,6 @@
 const ExplanationCard = () => {
   return (
-    <div className="flex flex-col bg-gradient-to-br from-cyan-700 to-cyan-500 rounded-xl py-8 px-6 shadow-2xl h-80">
+    <div className="flex flex-col bg-gradient-to-br from-cyan-700 to-cyan-500 rounded-xl py-8 px-6 shadow-2xl">
       <h2 className="text-2xl font-bold">Why Bookmarkers-Diggers</h2>
       <p className="tracking-wide mt-4 ml-3 text-slate-200 font-lg font-kanit">
         Over the months, the Holbies scraps tons of webpages and <br />

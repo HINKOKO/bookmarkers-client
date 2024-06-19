@@ -55,7 +55,7 @@ const EditProfile = () => {
   };
 
   return (
-    <div className="container flex w-11/12 bg-orange-200 mx-auto">
+    <div className="container flex w-11/12 bg-gradient-to-br from-amber-400 to-orange-500 mx-auto rounded-2xl">
       <form
         className="mx-auto w-4/5 mt-4 space-y-8"
         onSubmit={e => {
@@ -64,12 +64,6 @@ const EditProfile = () => {
         }}
       >
         <div className="flex flex-row justify-center items-center space-between gap-8">
-          <label
-            htmlFor="current_email"
-            className="font-small italic font-kanit"
-          >
-            current avatar
-          </label>
           <div
             id="avatar_prez"
             className="flex flex-row space-between rounded-lg p-4 "
@@ -85,7 +79,7 @@ const EditProfile = () => {
             </div>
             <button
               type="button"
-              className="font-thin text-lg font-kanit bg-blue-400"
+              className="p-2 font- text-lg text-slate-200 font-kanit bg-gradient-to-br from-cyan-700 to-cyan-500 rounded-tr-lg rounded-br-lg"
               onClick={handleButtonClick}
             >
               load a new avatar
@@ -98,9 +92,6 @@ const EditProfile = () => {
               accept="image/*"
               onChange={handleFileChange}
             />
-
-            {/* <button style="display:block;width:120px; height:30px;" onclick="document.getElementById('getFile').click()">Your text here</button>
-  <input type='file' id="getFile" style="display:none"></input> */}
           </div>
         </div>
         <div>
@@ -126,7 +117,7 @@ const EditProfile = () => {
             current password
           </label>
           <input
-            type="text"
+            type="password"
             className="border text-sm rounded-lg block w-full p-2.5"
             maxLength={2048}
             placeholder="Please enter current password"
@@ -141,7 +132,7 @@ const EditProfile = () => {
             New password
           </label>
           <input
-            type="text"
+            type="password"
             className="border text-sm rounded-lg block w-full p-2.5"
             maxLength={2048}
             placeholder="New password"
@@ -156,7 +147,7 @@ const EditProfile = () => {
             Confirm New password
           </label>
           <input
-            type="text"
+            type="password"
             className="border text-sm rounded-lg block w-full p-2.5"
             maxLength={2048}
             placeholder="Confirm new password"

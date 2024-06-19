@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../store/AuthContext';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
+import axios from 'axios';
 
 const backend = 'http://localhost:8080';
 
@@ -16,6 +18,12 @@ const containsEspaced = text => {
 };
 
 const SubmitBookmark = () => {
+  const initialCategory = '';
+  const initialProject = '';
+  const initialType = '';
+  const initialDesc = '';
+  const initialUrl = '';
+
   const [categories, setCategories] = useState([
     { id: 1, category: 'system-linux' },
     { id: 2, category: 'system-algorithms' },
@@ -24,13 +32,13 @@ const SubmitBookmark = () => {
     { id: 5, category: 'simple-shell' },
   ]);
   const [projects, setProjects] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('');
-  const [selectedProject, setSelectedProject] = useState([]);
-  const [type, setType] = useState('');
-  const [desc, setDesc] = useState('');
-  const [url, setUrl] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
+  const [selectedProject, setSelectedProject] = useState(initialProject);
+  const [type, setType] = useState(initialType);
+  const [desc, setDesc] = useState(initialDesc);
+  const [url, setUrl] = useState(initialUrl);
+  // user authenticated ?
   const { user } = useAuth();
-  const navigate = useNavigate();
 
   const urlPattern = new RegExp(
     '^(http(s)?://)' + // Début de la chaîne avec http:// ou https://
@@ -59,8 +67,6 @@ const SubmitBookmark = () => {
         throw new Error('failed to fetch projects from selected category');
       }
       const projectsData = await response.json();
-      console.log(projectsData);
-      // setSelectedProject(projectsData);
       setProjects(projectsData);
     } catch (error) {
       console.log('error fetching projects:', error);
@@ -70,8 +76,6 @@ const SubmitBookmark = () => {
   const handleCategoryChange = e => {
     const categoryId = e.target.value;
     setSelectedCategory(categoryId);
-    // Optionally, fetch projects based on the selected category ID
-    // fetchProjectsByCategory(categoryId);
   };
 
   const handleTypeChange = e => {
@@ -81,7 +85,6 @@ const SubmitBookmark = () => {
   const handleNewBookmark = async e => {
     e.preventDefault();
     try {
-      console.log('selected project has an id of' + selectedProject);
       if (!isValidUrl(url)) {
         alert('invalid url you mallory actor');
       }
@@ -99,15 +102,32 @@ const SubmitBookmark = () => {
         project_id: parseInt(selectedProject, 10),
         type: type,
       };
-      console.log(bookmarkData);
+      // console.log(bookmarkData);
       const response = await axios.post(
         `${backend}/contributors/insert-bookmark`,
         bookmarkData
       );
       console.log('Bookmark proposal submitted:', response.data);
+      toast.success('Submit accepted !');
+      // Reset form fields to initial state
+      setSelectedCategory(initialCategory);
+      setSelectedProject(initialProject);
+      setType(initialType);
+      setDesc(initialDesc);
+      setUrl(initialUrl);
+
       // Optionally, you can show a success message or redirect the user
     } catch (error) {
       console.error('Error submitting bookmark proposal:', error);
+      toast.error(
+        'error submitting your proposal - are all the fields valid ?'
+      );
+    } finally {
+      setSelectedCategory(initialCategory);
+      setSelectedProject(initialProject);
+      setType(initialType);
+      setDesc(initialDesc);
+      setUrl(initialUrl);
     }
   };
 
@@ -116,10 +136,10 @@ const SubmitBookmark = () => {
   }
 
   return (
-    <div className="flex bg-fuchsia-700">
-      <div className="flex flex-col container m-8 shadow-blue-500/50 shadow-2xl">
-        <h3 className="mt-8 text-center text-2xl font-lg font-kanit">
-          A new goldy bookmark to share?
+    <div className="container flex w-11/12 mx-auto bg-fuchsia-700 rounded-xl">
+      <div className="flex flex-col container my-6 mx-10 shadow-blue-500/50 shadow-2xl">
+        <h3 className="p-4 text-center text-2xl text-slate-200 font-semibold font-kanit">
+          New gold resource to share ?
         </h3>
 
         <div className="flex flex-col m-2 p-4 bg-slate-200 rounded-xl">
@@ -215,6 +235,7 @@ const SubmitBookmark = () => {
           </form>
         </div>
       </div>
+      <ToastContainer autoClose={1000} />
     </div>
   );
 };
