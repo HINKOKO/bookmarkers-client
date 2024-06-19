@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { IoMdLogOut } from 'react-icons/io';
 import { Link } from 'react-router-dom';
+import { getAvatarUrl } from '../../store/avatar_utils';
 
 const LogoutButton = ({
   isAuthenticated,
@@ -9,6 +10,7 @@ const LogoutButton = ({
   setUser,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const avatarUrl = getAvatarUrl(user?.avatar_url);
 
   const handleLogout = async () => {
     try {
@@ -45,7 +47,9 @@ const LogoutButton = ({
         >
           Welcome {user.username}
           <div>
-            {user.avatar_url && <img src={user.avatar_url} alt="User Avatar" />}
+            {user.avatar_url && (
+              <img src={avatarUrl} alt="User Avatar" width={36} height={36} />
+            )}
           </div>
         </Link>
       </div>

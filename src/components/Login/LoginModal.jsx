@@ -121,12 +121,15 @@ const LoginModal = ({ open }) => {
                 </button>
               </form>
             </div>
-            <div className="flex flex-col md:flex-row justify-between">
+            <div className="mt-3 flex flex-col justify-center">
+              <h4 className="text-lg font-thin font-kanit italic mb-2">
+                Or Create an account
+              </h4>
               <button
                 onClick={() => navigate('/register')}
-                className="mt-4 bg-fuchsia-800 text-white px-4 py-2 rounded"
+                className="bg-fuchsia-800 text-white font-semibold font-kanit px-4 py-2 rounded"
               >
-                New Account
+                Create an account
               </button>
             </div>
           </div>

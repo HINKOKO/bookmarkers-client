@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
 import { useAuth } from '../../store/AuthContext';
+import { getAvatarUrl } from '../../store/avatar_utils';
 
 const backend = `http://localhost:8080`;
 
@@ -12,9 +13,11 @@ const EditProfile = () => {
   const [preview, setPreview] = useState(null);
 
   const { user } = useAuth();
+  const avatarUrl = getAvatarUrl(user?.avatar_url);
+
   const hiddenFileInput = useRef(null);
 
-  // console.log(user);
+  console.log(user);
 
   const handleFileChange = e => {
     const file = e.target.files[0];
@@ -73,7 +76,7 @@ const EditProfile = () => {
           >
             <div className="bg-slate-300 p-8 rounded-tl-lg rounded-bl-lg">
               <img
-                src={preview || user.avatar_url}
+                src={preview || avatarUrl}
                 alt="current_avatar"
                 className="rounded-md"
                 width={46}

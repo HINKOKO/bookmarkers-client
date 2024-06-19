@@ -41,7 +41,7 @@ const Bookmarks = () => {
 
   return (
     <>
-      <div className="flex bg-teal-500">
+      <div className="flex bg-black">
         <div className="flex flex-col md:flex-row container m-8 shadow-blue-500/50 shadow-2xl">
           <div className="hidden md:block bg-slate-200 min-h-screen flex flex-col w-76 justify-between rounded-r-xl md:rounded-r-none rounded-l-xl border-t md:border-t-0 border-r border-solid border-black border-l border-solid border-purple">
             {/* sidebar header */}
