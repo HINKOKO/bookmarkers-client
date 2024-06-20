@@ -58,14 +58,13 @@ const LogoutButton = ({
           />
         )}
       </div>
-
-      {/* <div
-        className={`text-lg transition-opacity duration-300 ${
-          isHovered ? 'opacity-100' : 'opacity-0'
-        }`}
-      >
-        Logout
-      </div> */}
+      {user.is_admin && (
+        <div id="admin-dashboard" className="flex m-2 pr-2 border-r-4">
+          <Link to="/admin-dashboard" className="ml-4 py-2 px-4 text-white">
+            Admin Dash
+          </Link>
+        </div>
+      )}
       <div id="logout" className="group logout flex m-2">
         <IoMdLogOut
           className="w-12 h-12 group-hover:scale-110"

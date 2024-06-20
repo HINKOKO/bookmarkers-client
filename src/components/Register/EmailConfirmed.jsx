@@ -44,7 +44,8 @@ const EmailConfirmed = () => {
           className="mt-6 px-4 py-4 border w-full rounded-xl bg-amber-700 text-lg font-medium font-kanit"
           onClick={handleNavigate}
         >
-          {redirectToLogin ? 'Go to Login' : 'Go to Home'}
+          {/* {redirectToLogin ? 'Go to Login' : 'Go to Home'} */}
+          Go home and login
         </button>
       </div>
     </div>

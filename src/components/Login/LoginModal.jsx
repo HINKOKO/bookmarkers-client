@@ -26,13 +26,16 @@ const LoginModal = ({ open }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        credentials: 'include', // ensure cookies are included in the request
+        credentials: 'include',
         body: JSON.stringify({ email, password }),
       });
       if (response.ok) {
+        const data = await response.json();
+        console.log('Response from backend:', JSON.stringify(data, null, 2));
         // Handle successful login (e.g., redirect to dashboard)
+        handleLoginResponse(data.token);
         navigate('/dashboard');
-        handleLoginResponse();
+        closeModal();
       } else {
         // Handle login failure (e.g., show error message)
         console.error('Login failed');

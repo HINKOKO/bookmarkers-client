@@ -28,10 +28,11 @@ const Home = () => {
   const location = useLocation();
   const [openLoginModal, setOpenLoginModal] = useState(false);
   // const [authenticated, setAuthenticated] = useState(false);
-  const { isAuthenticated, user, setIsAuthenticated, setUser } = useAuth();
+  const { isAuthenticated, user, setIsAuthenticated, setUser, fetchUserInfo } =
+    useAuth();
 
   useEffect(() => {
-    // Check if the redirect query parameter is present in the URL
+    // Check if the redirect query parameter is present in the URL (when coming from mailbox)
     const queryParams = new URLSearchParams(location.search);
     const redirectToLogin = queryParams.get('redirect') === 'login';
 
@@ -43,8 +44,6 @@ const Home = () => {
     // check authentication status on backend
     // checkAuthStatus();
   }, [location.search]);
-
-  // const { isAuthenticated } = useAuth();
 
   return (
     <>

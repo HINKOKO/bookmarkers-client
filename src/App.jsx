@@ -9,13 +9,13 @@ import DashBoard from './pages/DashBoard';
 import EmailConfirm from './components/Register/EmailConfirm';
 import EmailConfirmed from './components/Register/EmailConfirmed';
 import Contributors from './pages/Contributors';
+import AdminDashboard from './pages/AdminDashboard';
 
 import { useAuth } from './store/AuthContext';
-
 import { useEffect } from 'react';
 
 function App() {
-  const { handleLoginResponse } = useAuth();
+  const { handleLoginResponse, isAuthenticated } = useAuth();
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -46,11 +46,10 @@ function App() {
         <Route path="/email-confirmation" element={<EmailConfirm />} />
         <Route path="/email-confirmed" element={<EmailConfirmed />} />
         <Route path="/contributors" element={<Contributors />} />
+        <Route path="/admin-dashboard" element={<AdminDashboard />} />
       </Routes>
     </div>
   );
 }
 
 export default App;
-
-// bg-gradient-to-t from-[#ff94c2] to-[#a8e6cf] h-screen font-robot

@@ -8,11 +8,37 @@ import EditProfile from '../components/Dashboard/EditProfile';
 import SubmitBookmark from '../components/Dashboard/SubmitBookmark';
 import TabComponent from '../components/Dashboard/TabComponent';
 
+const backend = `http://localhost:8080`;
+
 const DashBoard = () => {
-  const { user } = useAuth();
+  const { user, isAuthenticated, logout } = useAuth();
+  const [stats, setStats] = useState(null);
   const avatarUrl = getAvatarUrl(user?.avatar_url);
   const location = useLocation();
   const [activeTab, setActiveTab] = useState(0); // Default to edit profile
+  // stats info for user
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const response = await fetch(`${backend}/dashboard?userID=${user.id}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+        });
+        if (!response.ok) {
+          throw new Error('failed to fetch stats for your profile');
+        }
+        const data = await response.json();
+        console.log('data stats for user \t', data);
+        setStats(data);
+      } catch (error) {
+        console.log(error);
+      }
+      fetchStats();
+    };
+  }, [activeTab, user]); // empty dependency array - when component mounts only
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -28,7 +54,7 @@ const DashBoard = () => {
     { label: 'Submit bookmark', content: <SubmitBookmark /> },
   ];
 
-  if (!user) {
+  if (!isAuthenticated) {
     return <div>Loading...</div>;
   }
 
