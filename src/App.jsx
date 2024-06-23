@@ -10,12 +10,13 @@ import EmailConfirm from './components/Register/EmailConfirm';
 import EmailConfirmed from './components/Register/EmailConfirmed';
 import Contributors from './pages/Contributors';
 import AdminDashboard from './pages/AdminDashboard';
+import Unauthorized from './components/AdminDashboard/Unauthorized';
 
 import { useAuth } from './store/AuthContext';
 import { useEffect } from 'react';
 
 function App() {
-  const { handleLoginResponse, isAuthenticated } = useAuth();
+  const { handleLoginResponse, isAuthenticated, user } = useAuth();
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -46,7 +47,11 @@ function App() {
         <Route path="/email-confirmation" element={<EmailConfirm />} />
         <Route path="/email-confirmed" element={<EmailConfirmed />} />
         <Route path="/contributors" element={<Contributors />} />
-        <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        <Route
+          path="/admin-dashboard"
+          element={<AdminDashboard user={user} />}
+        />
+        <Route path="/unauthorized" element={<Unauthorized />} />
       </Routes>
     </div>
   );
