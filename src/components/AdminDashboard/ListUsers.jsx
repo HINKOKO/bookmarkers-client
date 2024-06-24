@@ -5,6 +5,8 @@ const env = import.meta.env;
 
 const ListUsers = ({ onUserClick }) => {
   const [users, setUsers] = useState([]);
+  const [isSelected, setIsSelected] = useState(null);
+
   useEffect(() => {
     const listUsers = async () => {
       try {
@@ -24,6 +26,11 @@ const ListUsers = ({ onUserClick }) => {
     listUsers();
   }, []);
 
+  const handleUserClick = user => {
+    onUserClick(user);
+    setIsSelected(user.id);
+  };
+
   return (
     <div className="relative">
       <h2 className="text-center font-bold text-white text-3xl font-kanit mb-10">
@@ -31,7 +38,12 @@ const ListUsers = ({ onUserClick }) => {
       </h2>
       <div className="space-y-8">
         {users.map(u => (
-          <CardUser key={u.id} user={u} onUserClick={onUserClick} />
+          <CardUser
+            key={u.id}
+            user={u}
+            onUserClick={handleUserClick}
+            isSelected={isSelected === u.id}
+          />
         ))}
       </div>
     </div>

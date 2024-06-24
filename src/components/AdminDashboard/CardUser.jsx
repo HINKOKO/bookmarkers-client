@@ -1,7 +1,10 @@
-const CardUser = ({ user, onUserClick }) => {
+const CardUser = ({ user, onUserClick, isSelected }) => {
   return (
+    // apply a style on card if user is selected
     <div
-      className="flex bg-white p-4 m-2 box-content rounded-xl shadow-md cursor-pointer hover:bg-slate-300"
+      className={`flex bg-white p-4 m-2 box-content rounded-xl shadow-md cursor-pointer hover:bg-slate-300 ${
+        isSelected ? 'border-4 border-black' : ''
+      }`}
       onClick={() => onUserClick(user)}
     >
       <img

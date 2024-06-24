@@ -50,9 +50,9 @@ const SubmitBookmark = () => {
   const isValidUrl = url => urlPattern.test(url);
 
   const handleUrlChange = e => {
-    const url = e.target.value;
-    setUrl(url);
+    setUrl(e.target.value);
   };
+  const handleDescChange = e => setDesc(e.target.value);
 
   useEffect(() => {
     if (selectedCategory) {
@@ -74,10 +74,9 @@ const SubmitBookmark = () => {
   };
 
   const handleCategoryChange = e => {
-    const categoryId = e.target.value;
-    setSelectedCategory(categoryId);
+    setSelectedCategory(e.target.value);
   };
-
+  const handleProjectChange = e => setSelectedProject(e.target.value);
   const handleTypeChange = e => {
     setType(e.target.value);
   };
@@ -98,14 +97,20 @@ const SubmitBookmark = () => {
       const bookmarkData = {
         url: url,
         description: sanitizedDescription,
-        user_id: user.id,
+        user_id: 87,
         project_id: parseInt(selectedProject, 10),
         type: type,
       };
+      console.log(
+        'bookmark data sent -> ' + JSON.stringify(bookmarkData, null, 2)
+      );
       // console.log(bookmarkData);
       const response = await axios.post(
         `${backend}/contributors/insert-bookmark`,
-        bookmarkData
+        bookmarkData,
+        {
+          withCredentials: true,
+        }
       );
       console.log('Bookmark proposal submitted:', response.data);
       toast.success('Submit accepted !');
@@ -122,12 +127,6 @@ const SubmitBookmark = () => {
       toast.error(
         'error submitting your proposal - are all the fields valid ?'
       );
-    } finally {
-      setSelectedCategory(initialCategory);
-      setSelectedProject(initialProject);
-      setType(initialType);
-      setDesc(initialDesc);
-      setUrl(initialUrl);
     }
   };
 
@@ -174,8 +173,8 @@ const SubmitBookmark = () => {
               <select
                 id="project"
                 className="border text-sm rounded-lg block w-full p-2.5"
-                value={selectedProject.id}
-                onChange={e => setSelectedProject(e.target.value)}
+                value={selectedProject}
+                onChange={handleProjectChange}
                 required
               >
                 <option value="">Select a project</option>
@@ -209,6 +208,7 @@ const SubmitBookmark = () => {
                 className="border text-sm rounded-lg block w-full p-2.5"
                 maxLength={2048}
                 placeholder="link to resource"
+                value={url}
                 onChange={handleUrlChange}
                 required
               />
@@ -219,7 +219,8 @@ const SubmitBookmark = () => {
                   className="border text-sm rounded-lg block w-full p-2.5"
                   maxLength={2048}
                   placeholder="Type some text to give brief info"
-                  onChange={e => setDesc(e.target.value)}
+                  value={desc}
+                  onChange={handleDescChange}
                   required
                 />
               </div>

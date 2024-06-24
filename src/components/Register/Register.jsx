@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IoCloseSharp, IoEye, IoEyeOff } from 'react-icons/io5';
 import './register.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 const url = `http://localhost:8080`;
 
@@ -59,6 +61,7 @@ const Register = () => {
       if (response.ok) {
         window.location.href = '/email-confirmation';
       } else {
+        toast.error('error - username or email already exist');
         console.error('registration failed');
       }
     } catch (error) {
@@ -174,6 +177,7 @@ const Register = () => {
           </button>
         </form>
       </div>
+      <ToastContainer autoClose={1000} />
     </div>
   );
 };
